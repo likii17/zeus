@@ -12,7 +12,7 @@ This system is designed to provide a unified approach to entity security, ensuri
 A framework has been designed to accomodate the same.
 
 ## Framework
-We have created a framework based on SWIFT CSCF by mapping the elements of each tool to relevant security controls.
+We have created a framework based on SWIFT CSCF (https://www2.swift.com/knowledgecentre/rest/v1/publications/cscf_dd/49.0/CSCF_v2023_20221021.pdf) by mapping the elements of each tool to relevant security controls.
 
 <img src="framework.png"/>
 
@@ -61,11 +61,6 @@ We have created a framework based on SWIFT CSCF by mapping the elements of each 
   - Implement logging and monitoring mechanisms to track and analyze security events.
 - **Data Encryption (ENC):**
   - Apply encryption techniques, especially when dealing with sensitive data.
-
-### Note:
-- Ensure that the framework adheres to relevant data protection regulations and standards.
-- Regularly update the tools and frameworks to address emerging security threats.
-- Conduct periodic security assessments and audits to identify and rectify vulnerabilities.
 
 ## Features
 
