@@ -12,18 +12,16 @@ This system is designed to provide a unified approach to entity security, ensuri
 A framework has been designed to accomodate the same.
 
 ## Framework
-We have created a framework based on SWIFT CSCF (https://www2.swift.com/knowledgecentre/rest/v1/publications/cscf_dd/49.0/CSCF_v2023_20221021.pdf) by mapping the elements of each tool to relevant security controls.
+We have created a framework based on SWIFT CSCF (https://www2.swift.com/knowledgecentre/rest/v1/publications/cscf_dd/49.0/CSCF_v2023_20221021.pdf) by mapping the elements of each tool to relevant security controls. The SWIFT CSCF consists of both mandatory and advisory security controls which are based on industry-standard frameworks, such as NIST, ISO 27000 and PCI-DSS. 
 
 <img src="framework.png"/>
 
 ### 1. Fraud Detection from Transaction History
-- **SWIFT CSCF Controls:**
   - **Fraud Detection and Reporting (FDR):**
     - Use statistical analysis and machine learning algorithms for fraud detection.
     - Implement controls to identify and report fraudulent transactions.
   
 ### 2. Real VS Fake Faces
-- **SWIFT CSCF Controls:**
   - **Biometric Data Protection (BDP):**
     - Utilize facial recognition for authentication.
     - Implement controls to detect fake faces and ensure the authenticity of biometric data.
@@ -37,19 +35,16 @@ We have created a framework based on SWIFT CSCF (https://www2.swift.com/knowledg
     - Implement controls to ensure the security and validity of parsed ID data.
 
 ### 4. Phishing Email Detection
-- **SWIFT CSCF Controls:**
   - **Email Security (ES):**
     - Apply phishing email detection mechanisms.
     - Identify and report indicators of compromise (IoC) related to phishing emails.
 
 ### 5. Threat Intelligence
-- **SWIFT CSCF Controls:**
   - **Threat Intelligence and Information Sharing (TIIS):**
     - Utilize threat intelligence feeds from various sources.
     - Collect and analyze threat data from Google News, Dark Web, and other specified feeds.
 
 ### 6. Facial Recognition Log-In Gateway
-- **SWIFT CSCF Controls:**
   - **Biometric Data Protection (BDP):**
     - Implement facial recognition for user authentication.
     - Ensure the integrity and authenticity of the facial recognition process.
@@ -91,20 +86,28 @@ We have created a framework based on SWIFT CSCF (https://www2.swift.com/knowledg
 
 ### Dashboard
 <img src="siem-dashboard/screenshots/Dashboard%20_%20ZEUS.png"/>
+
 ### CRCF Matrix Mapping
 <img src="siem-dashboard/screenshots/CRCF%20MATRIX%20Mapping%20_%20ZEUS.png"/>
+
 ### Create SIEM Investigation
 <img src="siem-dashboard/screenshots/Create%20Investigation%20%40%20SIEM%20_%20ZEUS.png"/>
+
 ### Ongoing SIEM Investigations
 <img src="siem-dashboard/screenshots/Ongoing%20Investigations%20%40%20SIEM%20_%20ZEUS.png"/>
+
 ### SIEM Investigation-Specific View
 <img src="siem-dashboard/screenshots/Resolved%20Incident%20_%20ZEUS.png"/>
+
 ### All SIEM Investigations
 <img src="siem-dashboard/screenshots/All%20Investigations%20%40%20SIEM%20_%20ZEUS.png"/>
+
 ### Face Database
 <img src="siem-dashboard/screenshots/Face%20DB%20_%20ZEUS.png"/>
+
 ### Government ID Validation
 <img src="siem-dashboard/screenshots/Validate%20ID%20_%20ZEUS.png"/>
+
 
 ## Contributors
 - Aaditya (aadityarenga@gmail.com)
