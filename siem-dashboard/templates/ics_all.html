@@ -1,0 +1,183 @@
+{% extends "index.html" %}
+{% block title %}SCADA/ICS OT {% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{url_for('static', filename='datatables/jquery.dataTables.min.css')}}"/>
+      <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+  <script src="{{url_for('static', filename='chart.js')}}"></script>
+    <script src="{{url_for('static', filename='datatables/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for('static', filename='datatables/dataTables.responsive.min.js')}}"></script>
+{% endblock %}
+{% block content %}
+<script>document.querySelector('#nav-ot').classList.add('active');</script>
+  <div class="main">
+  
+<subnav>
+  <a href="{{url_for('dashboard_ics')}}">MITRE ATT&CK Framework</a>
+  <a href="{{url_for('dashboard_ics_all')}}" class="active">View All Events</a>
+  <a style="cursor: not-allowed;" disabled> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-up-fill" viewBox="0 0 16 16">
+  <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 5.146a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0z"/>
+</svg> &nbsp;&nbsp;DCS Portal</a>
+</subnav>
+
+
+<br/><br/>
+<div class="row">
+      <div class="card" id="assets" style="width:20em;margin-right: 25px">
+          <span class="card-title">SCADA Attacks Chart</span>
+          <br/><br/><br/>
+          <div style="width:350px!important;height: 350px!important;margin: 0 auto;">
+          <canvas id="myDonutChart"></canvas>
+          </div>
+          <br/><br/><br/>
+          <span class="card-desc">Distribution of SCADA Attack Types and # of lines of logs that identify the same.</span>
+
+        </div>
+        <div class="card" id="assets" style="width:55em;margin-right: 25px">
+          <span class="card-title">Event Logs</span>
+          <br/><br/><br/>
+          <table id="event_logs">
+            <thead>
+              <th>
+                Attack
+              </th>
+              <th>
+                # of Log Relevant Lines
+              </th>
+              <th>
+                Malicious IP
+              </th>
+            </thead>
+            <tbody>
+              {% for log in logs %}
+              <tr>
+                <td>{{log["attack"]}}</td>
+                <td>{{log["relevant_logs"]}}</td>
+                <td>{{log["atk_ip"]}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+        <div class="card" id="assets" style="width:20em;margin-right: 25px">
+          <span class="card-title">Trusted Devices</span>
+          <br/><br/><br/>
+              <form id="addDevice" method="POST">
+          <table id="trusted_devices" style="max-width:90%!important">
+            <thead>
+              <th>
+                <b>Device ID</b>
+              </th>
+              <th>
+                <b>Device IP</b>
+              </th>
+              <th>
+                <b>Device Type</b>
+              </th>
+              <th></th>
+            </thead>
+            <tbody>
+            {% for device in trusted_devices %}
+              <tr>
+                <td>{{device["id"]}}</td>
+                <td>{{device["ip"]}}</td>
+                <td>{{device["type"]}}</td>
+                <td><a href="{{url_for('dashboard_ics_del', id=device['id'])}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+</svg></a></td>
+              </tr>
+            {% endfor %}
+            <tr>
+              <td><input type="text" placeholder="Add a Device" name="id" /></td>
+              <td><input type="text" name="ip" id="ipInput" onchange="document.getElementById('ipInput').value = this.value;"/></td>
+              <td><input type="text" name="type" id="typeInput" onchange="document.getElementById('typeInput').value = this.value;"/></td>
+              <td><button type="submit">Add</button></td>
+            </tr>
+            </tbody>
+          </table>
+              </form>
+        </div>
+      </div>
+
+    <script>
+            jQuery('#trusted_devices').dataTable({  
+              bAutoWidth: false,
+              responsive: true,
+               columnDefs: [
+            { width: 5, targets: 0 }
+        ],
+      });
+
+            jQuery('#event_logs').dataTable({  
+              bAutoWidth: false,
+              responsive: true,
+               columnDefs: [
+            { width: 5, targets: 0 }
+        ],
+      });
+    </script>
+<script>
+
+
+function generateTLRandomColor() {
+  // Define the color palette in RGB
+  const palette = [
+    { red: 255, green: 95, blue: 9 },
+    { red: 9, green: 113, blue: 255 },
+    { red: 255, green: 9, blue: 113 },
+    { red: 233, green: 246, blue: 255 }
+  ];
+
+  // Choose a random color from the palette
+  const randomColor = palette[Math.floor(Math.random() * palette.length)];
+
+  // Generate random shades for each channel
+  const shadeRed = Math.floor(Math.random() * 75);
+  const shadeGreen = Math.floor(Math.random() * 75);
+  const shadeBlue = Math.floor(Math.random() * 75);
+
+  // Generate a random value for the alpha channel between 0.1 and 1
+  const alpha = 0.6;
+
+  // Construct the RGBA color string with random shades
+  const colorString = `rgba(${randomColor.red + shadeRed},${randomColor.green + shadeGreen},${randomColor.blue + shadeBlue},${alpha})`;
+
+  return colorString;
+}
+
+// Function to generate an opaque version of a given color
+function genOP(colorList) {
+  return 
+}
+
+
+
+  
+    var bgColors = Array.from({ length: 2 }, () => generateTLRandomColor());
+
+    // Dummy data for the donut chart
+    var data = {
+      labels: {{pi['labels'] | safe}},
+      datasets: [{
+        data: {{pi['numbers'] | safe}},
+        backgroundColor: bgColors,
+        hoverBackgroundColor: genOP(bgColors),
+        borderWidth: 0 
+      }]
+    };
+    // Get the canvas element
+    var ctx = document.getElementById('myDonutChart').getContext('2d');
+
+    // Create the donut chart
+    var myDonutChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: data,
+      options: {
+        // Add any additional options here
+      }
+    });
+</script>
+{% endblock %}

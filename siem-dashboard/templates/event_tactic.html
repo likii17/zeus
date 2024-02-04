@@ -1,0 +1,95 @@
+{% extends "index.html" %}
+{% block title %}{{data[0]["mitre_tactic"]}} MITRE Technique{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{url_for('static', filename='datatables/jquery.dataTables.min.css')}}"/>
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.min.css')}}">
+      <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+  <style type="text/css">
+         .technique-cell {
+            padding: 15px;
+         }
+         .matrix-scroll-box, .matrix-container, .technique-cell {
+            background-color: rgba(0,0,0,0)!important;
+         }
+         .tactic:hover {
+            background-color: rgba(255, 255, 255, 0.1)!important;
+         }
+      </style>
+{% endblock %}
+{% block content %}
+<script>document.querySelector('#nav-frameworks').classList.add('active');</script>
+  <div class="main">
+  
+<subnav>
+  <a href="{{url_for('dashboard_owasp')}}">OWASP TOP 10</a>
+  <a href="{{url_for('dashboard_matrix')}}">MITRE ATT&CK Framework</a>
+  <a href="{{url_for('dashboard_events_all')}}" class="active">View All Events</a>
+</subnav>
+
+<br/>
+
+  <div class="main" style="color:white;">
+
+    <p><span onclick="history.back();" style="cursor: pointer;">Tactics</span> / {{data[0]["mitre_tactic"]}}</p>
+    <h1>{{data[0]["mitre_tactic"]}} > {{data[0]["owasp_map"]}}</h1>
+    <div style="background-color: rgba(255,255,255,0.1);min-height: 50px;padding:25px;font-family: 'Space Grotesk', sans-serif;">
+      <table style="width:100%;">
+        <tr>
+         
+          <td valign="top" style="width:35%!important">
+            <div style="width:75%!important;overflow: visible;">
+            <h3>Relevant Incidents</h3>
+            <br/>
+            <table style="width:35%!important" id="eventTable">
+              <thead>
+                <th>Path</th>
+              </thead>
+              <tbody>
+              {% for inc in data %}
+                <tr>
+                  <td>{{inc["resource_path"]}}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          </td>
+          <td valign="top" style="width: 35%!important">
+            <h3>Mitigations</h3>
+            <br/>
+            <ol>
+            {% for mitigation in data[0]["mitigations"][:20] %}
+            <li>{{mitigation["description"]}}</li>
+            {% endfor %}</ol>
+          </td>
+          
+          <td valign="top">
+            <h3>Description</h3>
+            <p>{{data[0]["descrip"]}}</p>
+          </td>
+        </tr>      
+      </table>
+    </div>
+
+    <script src="{{url_for('static', filename='datatables/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for('static', filename='datatables/dataTables.responsive.min.js')}}"></script>
+
+    <script>
+            jQuery('#eventTable').dataTable({  
+              bAutoWidth: false,
+              responsive: true,
+               columnDefs: [
+            { width: 5, targets: 0 }
+        ],
+      });
+    </script>
+
+  </div>
+
+
+
+
+
+{% endblock %}

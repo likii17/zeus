@@ -1,0 +1,42 @@
+<html>
+<head>
+	{% block head %}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>{% block title %}{% endblock %} | CYBRANA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap" rel="stylesheet">
+	{% endblock %}
+</head>
+<body>
+	<header>
+		<div class="left">
+			<img  onmouseover="dash_showDiv()" src="{{ url_for('static', filename='logo.png') }}" style="padding: 5px;" class="header-logo" />
+		</div>
+		<div class="right">
+
+			<nav class="no-mobile">
+				<a href="{{url_for('dashboard')}}" id="nav-dashboard">Dashboard</a>
+				<a href="{{url_for('dashboard_siem')}}" id="nav-siem">SIEM</a>
+				<a href="{{url_for('dashboard_ldap')}}" id="nav-corporate">Corporate</a>
+				<a href="{{url_for('dashboard_ids')}}" id="nav-ngids">NG-IDS</a>
+				<a href="{{url_for('dashboard_matrix')}}" id="nav-frameworks">Standard Framework Mappings</a>
+				<a href="{{url_for('dashboard_ics')}}" id="nav-ot">SCADA/ICS OT</a>
+			</nav>
+
+
+		</div>
+	</header>
+
+	<br/>
+
+	<main>
+
+		{% block content %}{% endblock %}
+		
+	</main>
+
+</body>
+</html>

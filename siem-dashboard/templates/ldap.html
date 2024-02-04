@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+{% block title %}LDAP{% endblock %}
+{% block head %}
+  {{ super() }}
+  <script src="{{url_for('static', filename='chart.js')}}"></script>
+  <style type="text/css">
+    table, thead, td, th, tbody tr {color:black!important;border:solid black 1px}
+
+  </style>
+{% endblock %}
+{% block content %}
+
+<script>document.querySelector('#nav-ldap').classList.add('active');</script>
+
+
+  <div class="main">
+
+    <div class="row">
+
+      <div style="display: block;">
+        <div class="card" id="assets" style="width:90vw;margin-right: 25px;height: 100%!important;background-color: #FED8B1!important;color: black;margin: 0 auto;">
+          <span class="card-title">Suspicious Temporary User-Role Changes</span>
+          <br/><br/>
+          <table style="margin: 0 auto">
+            <thead>
+              <th>Full Name</th>
+              <th>Role-1</th>
+              <th>Role-2</th>
+            </thead>
+            <tbody>
+              {% for i in changes %}
+              <tr>
+                <td>{{i["fullname"]}}</td>
+                <td>{{i["role_1"]}}</td>
+                <td>{{i["role_2"]}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

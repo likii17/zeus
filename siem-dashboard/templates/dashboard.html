@@ -1,0 +1,373 @@
+{% extends "index.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+  {{ super() }}
+  <script src="{{url_for('static', filename='chart.js')}}"></script>
+{% endblock %}
+{% block content %}
+
+<script>document.querySelector('#nav-dashboard').classList.add('active');</script>
+
+
+  <div class="main">
+
+    <div class="row">
+
+      <div style="display: block;">
+
+           <div class="card indexOfContents" style="width:30em;margin-right: 25px">
+            <span class="card-title">Security Dashboard</span>
+            <br/><br/>
+            <span class="card-desc" style="text-align: left!important;">
+              <ol>
+                <a href="#assets"><li>Asset Identification</li></a>
+                <a href="#data"><li>Data Source Breakdown</li></a>
+                <a href="#events"><li>Events Context</li></a>
+                <a href="#tfc"><li>Traffic Analysis</li></a>
+              </ol>
+                <a style="border:0.5px solid ghostwhite;border-radius:5px;padding:5px;text-align: center;margin: 0 auto;"><span style="text-align:center;padding-left: 35%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16">
+  <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
+  <path d="M4.603 12.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.6 11.6 0 0 0-1.997.406 11.3 11.3 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.244.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 5.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+</svg>&nbsp;Export as PDF</span></a>
+                <br/><span onclick="dash_hideDiv()" style="cursor: pointer;">Quit Menu</span>
+            </span>
+
+          </div>
+          <div style="display:block;">
+        <div class="card" id="assets" style="width:30em;margin-right: 25px;height: 35%!important;background-color: #FED8B1!important;color: black;">
+          <span class="card-title">Global Attacks Map</span>
+          <br/><br/><br/>
+          <div style="height:50%!important;margin: 0 auto!important;">
+            <span id="globeHere"></span>
+            <div id="markerLabel" class="hidden">
+              <button id="closeButton" style="visibility: hidden;"></button>
+              <div class="text" id="idNum" style="visibility: hidden;"></div>
+              <div class="text" id="magnitude" style="visibility: hidden;"></div>
+              <div class="text" id="coordinates" style="visibility: hidden;"></div>
+            </div>
+            <script src="{{url_for('static', filename='globe/image.js')}}">
+            </script>
+            <script src="{{url_for('static', filename='globe/globeAnimator.js')}}" type="module">
+            </script>
+          </div>
+          <br/><br/>
+          <span class="card-desc">Countries mapped to website accessors.</span>
+
+        </div>
+        <br/>
+        <div class="card" id="assets" style="width:30em;margin-right: 25px;margin-bottom: 10px!important;height: 35%!important;">
+          <span class="card-title">Asset Identification</span>
+          <br/><br/><br/>
+          <div style="height:50%!important;margin: 0 auto!important;">
+          <canvas id="myDonutChart"></canvas>
+          </div>
+          <br/><br/>
+          <span class="card-desc">Counts of identified and unidentified assets on SCADA network.</span>
+
+        </div>
+      </div>
+      </div>
+
+      <div class="card" id="data" style="width:65em;margin-left: 25px;">
+        <span class="card-title">Data Source Breakdown</span>
+        <br/><br/><br/>
+        <canvas id="dataSourceChart"></canvas>
+        <br/><br/><br/>
+        <span class="card-desc">List of data sources and # of lines of log analyzed from relevant sources.</span>
+
+      </div>
+
+    </div>
+
+    <BR/><BR/>
+
+    <div class="row">
+
+      <div class="card" id="events" style="width:40em;margin-right: 25px">
+        <span class="card-title">Events Context</span>
+        <br/><br/><br/>
+        <canvas id="eventContextChart"></canvas>
+        <br/><br/><br/>
+        <span class="card-desc">Events.</span>
+
+      </div>
+
+        <div class="card" id="tfc" style="width:55em;margin-left: 25px;">
+          <span class="card-title">Traffic Analysis</span>
+          <br/><br/><br/>
+          <canvas id="trafficChart"></canvas>
+          <br/><br/><br/>
+          <span class="card-desc">List of data sources and # of lines of log analyzed from relevant sources.</span>
+
+        </div>
+
+    </div>
+  </div>
+
+<script>
+
+function generateTLRandomColor() {
+  // Define the color palette in RGB
+  const palette = [
+    { red: 255, green: 95, blue: 9 },
+    { red: 9, green: 113, blue: 255 },
+    { red: 255, green: 9, blue: 113 },
+    { red: 233, green: 246, blue: 255 }
+  ];
+
+  // Choose a random color from the palette
+  const randomColor = palette[Math.floor(Math.random() * palette.length)];
+
+  // Generate random shades for each channel
+  const shadeRed = Math.floor(Math.random() * 75);
+  const shadeGreen = Math.floor(Math.random() * 75);
+  const shadeBlue = Math.floor(Math.random() * 75);
+
+  // Generate a random value for the alpha channel between 0.1 and 1
+  const alpha = 0.6;
+
+  // Construct the RGBA color string with random shades
+  const colorString = `rgba(${randomColor.red + shadeRed},${randomColor.green + shadeGreen},${randomColor.blue + shadeBlue},${alpha})`;
+
+  return colorString;
+}
+
+// Function to generate an opaque version of a given color
+function genOP(colorList) {
+  return 
+}
+
+
+
+  
+    var bgColors = Array.from({ length: 2 }, () => generateTLRandomColor());
+
+    // Dummy data for the donut chart
+    var data = {
+      labels: ['Identified', 'Unidentified'],
+      datasets: [{
+        data: [30, 50],
+        backgroundColor: bgColors,
+        hoverBackgroundColor: genOP(bgColors),
+        borderWidth: 0 
+      }]
+    };
+
+    // Get the canvas element
+    var ctx = document.getElementById('myDonutChart').getContext('2d');
+
+    // Create the donut chart
+    var myDonutChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: data,
+      options: {
+        // Add any additional options here
+      }
+    });
+
+    var bgColors = Array.from({ length: 6 }, () => generateTLRandomColor());
+
+    // Dummy data for the bar chart
+    var data = {
+      labels: ['Server Logs', 'NIDS', 'Firewall', 'SCADA', 'LDAP', 'EV'],
+      datasets: [{
+        label: '# of Logs',
+        data: [150, 200, 120, 150, 200, 120],
+        backgroundColor: bgColors,
+        hoverBackgroundColor: genOP(bgColors),
+        borderWidth: 0 
+      }]
+    };
+
+    // Get the canvas element
+    var ctx = document.getElementById('dataSourceChart').getContext('2d');
+
+    // Create the bar chart
+    var dataSourceChart = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+        // Add any additional options here
+      }
+    });
+
+
+    var bgColors = Array.from({ length: 5 }, () => generateTLRandomColor());
+
+// Sample data for the pie chart
+    var eventContextData = {
+      labels: ['Login Failure', 'Malware Detection', 'Data Exfiltration', 'Unauthorized Access', 'System Anomaly'],
+      datasets: [{
+        data: [25, 15, 30, 20, 10],
+        backgroundColor: bgColors,
+        hoverBackgroundColor: genOP(bgColors),
+        borderWidth: 0 
+      }]
+    };
+
+    // Get the canvas element
+    var ctx = document.getElementById('eventContextChart').getContext('2d');
+
+    // Create the pie chart
+    var eventContextChart = new Chart(ctx, {
+      type: 'pie',
+      data: eventContextData,
+      options: {
+        // Add any additional options here
+      }
+    });
+
+
+        // Sample data (replace this with your actual data)
+        var timeLabels = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00'];
+        var ipData = [1900, 915, 98, 920, 912, 918];
+
+        // Create a line chart
+        var tfcCtx = document.getElementById('trafficChart').getContext('2d');
+        var myChart = new Chart(tfcCtx, {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [{
+                    label: '192.168.0.1',
+                    data: ipData,
+                    fill: true,
+                    borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Area color
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'category', // Use a category scale for time labels
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    },
+                    y: {
+                        type: 'linear',
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: '# of Logs'
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+    var bgColors = Array.from({ length: 3 }, () => generateTLRandomColor());
+
+        var data = {
+    labels: ['Alert Type 1', 'Alert Type 2', 'Alert Type 3'],
+    datasets: [
+      {
+        label: 'Category A',
+        backgroundColor: bgColors[0],
+        data: [10, 20, 30]
+      },
+      {
+        label: 'Category B',
+        backgroundColor: bgColors[1],
+        data: [15, 25, 35]
+      },
+      {
+        label: 'Category C',
+        backgroundColor: bgColors[2],
+        data: [5, 15, 25]
+      }
+    ]
+  };
+
+  // Chart configuration
+  var options = {
+    scales: {
+      x: {
+        stacked: true,
+        title: {
+          display: true,
+          text: 'Alert Counts'
+        }
+      },
+      y: {
+        stacked: true,
+        title: {
+          display: true,
+          text: '#'
+        }
+      }
+    }
+  };
+
+
+function dash_showDiv() {
+  var hiddenDiv = document.getElementsByClassName("indexOfContents")[0];
+  hiddenDiv.style.display = "block";
+  // Get the element with the ID "globeHere"
+var globeElement = document.getElementById('globeHere');
+
+// Select the last child div
+var divsWithTouchActionNone = globeElement.querySelector('div:last-child');
+    
+      divsWithTouchActionNone.style.display = 'none';
+  setTimeout(function() {
+    hiddenDiv.style.opacity = 1;
+    hiddenDiv.style.transform = "scale(1)";
+  }, 10);
+}
+
+function dash_hideDiv() {
+  var hiddenDiv = document.getElementsByClassName("indexOfContents")[0];
+  hiddenDiv.style.opacity = 0;
+  hiddenDiv.style.transform = "scale(0)";
+  // Get the element with the ID "globeHere"
+var globeElement = document.getElementById('globeHere');
+
+// Select the last child div
+var divsWithTouchActionNone = globeElement.querySelector('div:last-child');
+      
+      divsWithTouchActionNone.style.display = 'block';
+  setTimeout(function() {
+    hiddenDiv.style.display = "none";
+  }, 300);
+}
+
+  </script>
+
+<script>
+
+// Function to scroll to the target anchor minus the height of the 'indexOfContents' div
+  function scrollToAnchor(anchorId) {
+    var offset = document.querySelector('.indexOfContents').offsetHeight;
+    var targetElement = document.getElementById(anchorId);
+    
+    if (targetElement) {
+      var targetPosition = targetElement.offsetTop - offset;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  // Attach click event listeners to the links
+  document.querySelectorAll('.card-desc a').forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      var anchorId = this.getAttribute('href').substring(1); // Remove the '#' from the href
+      scrollToAnchor(anchorId);
+    });
+  });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "index.html" %}
+{% block title %}All Events{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{url_for('static', filename='datatables/jquery.dataTables.min.css')}}"/>
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.min.css')}}">
+      <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+  <style type="text/css">
+         .technique-cell {
+            padding: 15px;
+         }
+         .matrix-scroll-box, .matrix-container, .technique-cell {
+            background-color: rgba(0,0,0,0)!important;
+         }
+         .tactic:hover {
+            background-color: rgba(255, 255, 255, 0.1)!important;
+         }
+      </style>
+{% endblock %}
+{% block content %}
+<script>document.querySelector('#nav-frameworks').classList.add('active');</script>
+  <div class="main">
+  
+<subnav>
+  <a href="{{url_for('dashboard_owasp')}}" class="active">OWASP TOP 10</a>
+  <a href="{{url_for('dashboard_matrix')}}">MITRE ATT&CK Framework</a>
+  <a href="{{url_for('dashboard_events_all')}}">View All Events</a>
+</subnav>
+
+<br/><br/>
+
+  <div class="main">
+
+    <table id="eventsTable">
+      <thead>
+        <th>
+          Path
+        </th>
+        <th>
+          Tactic
+        </th>
+        <th>
+          OWASP
+        </th>
+        <th>
+          View
+        </th>
+      </thead>
+      <tbody>
+        {% for event in data %}
+        <tr>
+          <td>
+            {{event["resource_path"]}}
+          </td>
+          <td>
+            {{event["mitre_tactic"]}}
+          </td>
+          <td>
+            {{event["owasp_map"]}}
+          </td>
+          <td>
+            <a href="{{url_for('dashboard_event_tactic')}}?id={{event['mitre_tactic']}}">View</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    <script src="{{url_for('static', filename='datatables/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='datatables/jquery.dataTables.min.js')}}"></script>
+    <script>
+      let table = new DataTable('#eventsTable');
+    </script>
+
+  </div>
+
+
+
+
+
+{% endblock %}

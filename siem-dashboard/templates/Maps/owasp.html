@@ -1,0 +1,462 @@
+{% extends "index.html" %}
+{% block title %}OWASP TOP 10 Mapping{% endblock %}
+{% block head %}
+  {{ super() }}
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.min.css')}}">
+      <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+  <style type="text/css">
+         .technique-cell {
+            padding: 15px;
+         }
+         .matrix-scroll-box, .matrix-container, .technique-cell {
+            background-color: rgba(0,0,0,0)!important;
+         }
+         .tactic:hover {
+            background-color: rgba(255, 255, 255, 0.1)!important;
+         }
+      </style>
+{% endblock %}
+{% block content %}
+<script>document.querySelector('#nav-frameworks').classList.add('active');</script>
+  <div class="main">
+  
+<subnav>
+  <a href="{{url_for('dashboard_owasp')}}" class="active">OWASP TOP 10</a>
+  <a href="{{url_for('dashboard_matrix')}}">MITRE ATT&CK Framework</a>
+  <a href="{{url_for('dashboard_events_all')}}">View All Events</a>
+</subnav>
+
+
+
+      <div class="card" >
+
+
+<div class="matrix-container p-3" style="overflow-x: visible;overflow-y: visible;width: auto!important;margin: 0 auto!important;max-width: 50%!important;">
+      <div class="scroll-indicator-group">
+        <div class="scroll-indicator left">
+          <div class="cover"></div>
+        </div>
+        <div class="overflow-x-auto matrix-scroll-box pb-3">
+          <table class="matrix side">
+            <thead>
+              <tr>
+                <td class="tactic name">OWASP TOP 10</td>
+              </tr>
+              <tr>
+                <td class="tactic count">{{n}} logs mapped to OWASP TOP 10</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tactic">
+                  <table class="techniques-table">
+                    <!-- tour technique is scheduled task under privilege escalation -->
+                    <tbody>
+                      <tr class="technique-row">
+                        <td>
+                          <table class="supertechnique">
+                            <tbody>
+                              <tr>
+                                <td class="technique">
+                                  <div class="technique-cell supertechniquecell">
+                                    A01:2021-Broken Access Control
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--67073dde-d720-45ae-83da-b12d5e73ca3b" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--67073dde-d720-45ae-83da-b12d5e73ca3b');">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--67073dde-d720-45ae-83da-b12d5e73ca3b">
+                            
+                        {% for log in A01 %}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+
+                        {% endfor %}
+                          </div>
+                        </td>
+                      </tr><!-- tour technique is scheduled task under privilege escalation -->
+                      <tr class="technique-row" id="tour-side-technique">
+                        <td>
+                          <table class="supertechnique">
+                            <tbody>
+                              <tr>
+                                <td class="technique">
+                                  <div class="technique-cell supertechniquecell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--09312b1a-c3c6-4b45-9844-3ccc78e5d82f">
+                                    A02:2021-Cryptographic Failures
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--09312b1a-c3c6-4b45-9844-3ccc78e5d82f sidebar--tour" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--09312b1a-c3c6-4b45-9844-3ccc78e5d82f'); tour_technique_clicked();">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td" id="tour-side-subtechniques">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--09312b1a-c3c6-4b45-9844-3ccc78e5d82f subtechniques--tour">
+                            
+                            {% for log in A02 %}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr><!-- tour technique is scheduled task under privilege escalation -->
+                      <tr class="technique-row">
+                        <td>
+                          <table class="supertechnique">
+                            <tbody>
+                              <tr>
+                                <td class="technique">
+                                  <div class="technique-cell supertechniquecell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--5282dd9a-d26d-4e16-88b7-7c0f4553daf4">
+                                    A03:2021-Injection
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--5282dd9a-d26d-4e16-88b7-7c0f4553daf4" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--5282dd9a-d26d-4e16-88b7-7c0f4553daf4');">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--5282dd9a-d26d-4e16-88b7-7c0f4553daf4">
+                            {% for log in A03 %}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr><!-- tour technique is scheduled task under privilege escalation -->
+                      <tr class="technique-row">
+                        <td>
+                          <table class="supertechnique">
+                            <tbody>
+                              <tr>
+                                <td class="technique">
+                                  <div class="technique-cell supertechniquecell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--9d48cab2-7929-4812-ad22-f536665f0109">
+                                    A04-2021:Insecure Design
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--9d48cab2-7929-4812-ad22-f536665f0109" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--9d48cab2-7929-4812-ad22-f536665f0109');">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--9d48cab2-7929-4812-ad22-f536665f0109">
+                            {% for log in A04 %}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr><!-- tour technique is scheduled task under privilege escalation -->
+                      <tr class="technique-row">
+                        <td>
+                          <table class="supertechnique">
+                            <tbody>
+                              <tr>
+                                <td class="technique">
+                                  <div class="technique-cell supertechniquecell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--937e4772-8441-4e4a-8bf0-8d447d667e23">
+                                    A05:2021-Security Misconfiguration
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--937e4772-8441-4e4a-8bf0-8d447d667e23" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--937e4772-8441-4e4a-8bf0-8d447d667e23');">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--937e4772-8441-4e4a-8bf0-8d447d667e23">
+                            {% for log in A05 %}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr><!-- tour technique is scheduled task under privilege escalation -->
+                      <tr class="technique-row">
+                        <td>
+                          <table class="supertechnique">
+                            <tbody>
+                              <tr>
+                                <td class="technique">
+                                  <div class="technique-cell supertechniquecell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--cca0ccb6-a068-4574-a722-b1556f86833a">
+                                    A06:2021-Vulnerable and Outdated Components
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--cca0ccb6-a068-4574-a722-b1556f86833a" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--cca0ccb6-a068-4574-a722-b1556f86833a');">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--cca0ccb6-a068-4574-a722-b1556f86833a">
+                            {% for log in A06%}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr><!-- tour technique is scheduled task under privilege escalation -->
+                      <tr class="technique-row">
+                        <td>
+                          <table class="supertechnique">
+                            <tbody>
+                              <tr>
+                                <td class="technique">
+                                  <div class="technique-cell supertechniquecell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--a51eb150-93b1-484b-a503-e51453b127a4">
+                                    A07:2021-Identification and Authentication Failures
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--a51eb150-93b1-484b-a503-e51453b127a4" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--a51eb150-93b1-484b-a503-e51453b127a4');">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--a51eb150-93b1-484b-a503-e51453b127a4">
+                            {% for log in A07 %}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr><!-- tour technique is scheduled task under privilege escalation -->
+                      <tr class="technique-row">
+                        <td>
+                          <table class="supertechnique">
+                            <tbody>
+                              <tr>
+                                <td class="technique">
+                                  <div class="technique-cell supertechniquecell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--55fc4df0-b42c-479a-b860-7a6761bcaad0">
+                                    A08:2021-Software and Data Integrity Failures
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--55fc4df0-b42c-479a-b860-7a6761bcaad0" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--55fc4df0-b42c-479a-b860-7a6761bcaad0');">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--55fc4df0-b42c-479a-b860-7a6761bcaad0">
+                            {% for log in A08 %}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr><!-- tour technique is scheduled task under privilege escalation -->
+                      <tr class="technique-row">
+                        <td>
+                          <table class="supertechnique">
+                            <tbody>
+                              <tr>
+                                <td class="technique">
+                                  <div class="technique-cell supertechniquecell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--a0e6614a-7740-4b24-bd65-f1bde09fc365">
+                                    A09:2021-Security Logging and Monitoring Failures
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--a0e6614a-7740-4b24-bd65-f1bde09fc365" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--a0e6614a-7740-4b24-bd65-f1bde09fc365');">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--a0e6614a-7740-4b24-bd65-f1bde09fc365">
+                            {% for log in A09 %}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr><!-- tour technique is scheduled task under privilege escalation -->
+                      <tr class="technique-row">
+                        <td>
+                          <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--16cdd21f-da65-4e4f-bc04-dd7d198c7b26">
+                            A10:2021-Server-Side Request Forgery (SSRF)
+                          </div>
+                        </td>
+                        <td class="sidebar sidebar--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--a0e6614a-7740-4b24-bd65-f1bde09fc365" onclick="toggleMatrixSubTechniques('x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592', 'attack-pattern--a0e6614a-7740-4b24-bd65-f1bde09fc365');">
+                          <div class="angle top">
+                            <svg width="12px" height="12px">
+                            <path d="M0 12H12V0Z"></path></svg>
+                          </div>
+                          <div class="handle">
+                            ↓
+                          </div>
+                          <div class="angle bottom">
+                            <svg width="12px" height="12px">
+                            <path d="M0 0H12V12Z"></path></svg>
+                          </div>
+                        </td>
+                        <td class="subtechniques-td">
+                          <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--a0e6614a-7740-4b24-bd65-f1bde09fc365">
+                            {% for log in A10 %}
+                            <div class="subtechnique">
+                              <div class="technique-cell" id="technique-cell--x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592--attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120">
+                                <span style="word-break: break-word;width: 100%!important;word-wrap: break-word;">{{log["resource_path"]}}</span>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="scroll-indicator right show">
+          <div class="cover"></div>
+        </div>
+      </div>
+    </div>
+
+ </div>
+ </div>
+
+   </div>
+
+
+   <script src="{{url_for('static', filename='datatables/jquery-3.7.1.min.js')}}"></script>
+   <script src="{{url_for('static', filename='matrix.js')}}"></script>
+
+      {% endblock %}

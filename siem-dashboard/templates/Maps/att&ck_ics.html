@@ -1,0 +1,1530 @@
+{% extends "index.html" %}
+{% block title %}MITRE ATT&CK Mapping{% endblock %}
+{% block head %}
+  {{ super() }}
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.min.css')}}">
+      <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+  <style type="text/css">
+         .technique-cell {
+            padding: 10px;
+         }
+         .matrix-scroll-box, .matrix-container, .technique-cell {
+            background-color: rgba(0,0,0,0)!important;
+         }
+         .tactic:hover {
+            background-color: rgba(255, 255, 255, 0.1)!important;
+         }
+      </style>
+{% endblock %}
+{% block content %}
+<script>document.querySelector('#nav-ot').classList.add('active');</script>
+  <div class="main">
+  
+<subnav>
+  <a href="{{url_for('dashboard_ics')}}" class="active">MITRE ATT&CK Framework</a>
+  <a href="{{url_for('dashboard_ics_all')}}">View All Events</a>
+  <a style="cursor: not-allowed;" disabled> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-up-fill" viewBox="0 0 16 16">
+  <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 5.146a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0z"/>
+</svg> &nbsp;&nbsp;DCS Portal</a>
+</subnav>
+
+
+
+      <div class="card" >
+
+
+            <div class="matrix-container p-3">
+    <div class="scroll-indicator-group">
+        <div class="scroll-indicator left">
+            <div class="cover"></div>
+        </div>
+        <div class="overflow-x-auto matrix-scroll-box pb-3">
+                <table class="matrix side">
+    <thead>
+        <tr>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0108" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0108">Initial Access</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0104" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0104">Execution</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0110" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0110">Persistence</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0111" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0111">Privilege Escalation</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0103" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0103">Evasion</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0102" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0102">Discovery</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0109" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0109">Lateral Movement</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0100" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0100">Collection</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0101" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0101">Command and Control</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0107" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0107">Inhibit Response Function</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0106" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0106">Impair Process Control</a></td>
+                <td class="tactic name"><a href="https://attack.mitre.org/tactics/TA0105" data-toggle="tooltip" data-placement="top" title="" data-original-title="TA0105">Impact</a></td>
+        </tr>
+        <tr>
+                <td class="tactic count">
+                    12 techniques
+                </td>
+                <td class="tactic count">
+                    9 techniques
+                </td>
+                <td class="tactic count">
+                    6 techniques
+                </td>
+                <td class="tactic count">
+                    2 techniques
+                </td>
+                <td class="tactic count">
+                    6 techniques
+                </td>
+                <td class="tactic count">
+                    5 techniques
+                </td>
+                <td class="tactic count">
+                    7 techniques
+                </td>
+                <td class="tactic count">
+                    11 techniques
+                </td>
+                <td class="tactic count">
+                    3 techniques
+                </td>
+                <td class="tactic count">
+                    14 techniques
+                </td>
+                <td class="tactic count">
+                    5 techniques
+                </td>
+                <td class="tactic count">
+                    12 techniques
+                </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--7830cfcf-b268-4ac0-a69e-73c6affbae9a">
+    Drive-by Compromise
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--7830cfcf-b268-4ac0-a69e-73c6affbae9a">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--32632a95-6856-47b9-9ab7-fea5cd7dce00">
+    Exploit Public-Facing Application
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--32632a95-6856-47b9-9ab7-fea5cd7dce00">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--85a45294-08f1-4539-bf00-7da08aa7b0ee">
+    Exploitation of Remote Services
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--85a45294-08f1-4539-bf00-7da08aa7b0ee">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--8d2f3bab-507c-4424-b58b-edc977bd215c">
+    External Remote Services
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--8d2f3bab-507c-4424-b58b-edc977bd215c">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--f8df6b57-14bc-425f-9a91-6f59f6799307">
+    Internet Accessible Device
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--f8df6b57-14bc-425f-9a91-6f59f6799307">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--e1f9cdd2-9511-4fca-90d7-f3e92cfdd0bf">
+    Remote Services
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--e1f9cdd2-9511-4fca-90d7-f3e92cfdd0bf">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--c267bbee-bb59-47fe-85e0-3ed210337c21">
+    Replication Through Removable Media
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--c267bbee-bb59-47fe-85e0-3ed210337c21">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--b14395bd-5419-4ef4-9bd8-696936f509bb">
+    Rogue Master
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--b14395bd-5419-4ef4-9bd8-696936f509bb">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--648f995e-9c3a-41e4-aeee-98bb41037426">
+    Spearphishing Attachment
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--648f995e-9c3a-41e4-aeee-98bb41037426">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--5e0f75da-e108-4688-a6de-a4f07cc2cbe3">
+    Supply Chain Compromise
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--5e0f75da-e108-4688-a6de-a4f07cc2cbe3">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--35392fb4-a31d-4c6a-b9f2-1c65b7f5e6b9">
+    Transient Cyber Asset
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--35392fb4-a31d-4c6a-b9f2-1c65b7f5e6b9">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--2877063e-1851-48d2-bcc6-bc1d2733157e">
+    Wireless Compromise
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--69da72d2-f550-41c5-ab9e-e8255707f28a--attack-pattern--2877063e-1851-48d2-bcc6-bc1d2733157e">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--2883c520-7957-46ca-89bd-dab1ad53b601">
+    Change Operating Mode
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--2883c520-7957-46ca-89bd-dab1ad53b601">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--24a9253e-8948-4c98-b751-8e2aee53127c">
+    Command-Line Interface
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--24a9253e-8948-4c98-b751-8e2aee53127c">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--5a2610f6-9fff-41e1-bc27-575ca20383d4">
+    Execution through API
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--5a2610f6-9fff-41e1-bc27-575ca20383d4">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--b0628bfc-5376-4a38-9182-f324501cb4cf">
+    Graphical User Interface
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--b0628bfc-5376-4a38-9182-f324501cb4cf">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--ab390887-afc0-4715-826d-b1b167d522ae">
+    Hooking
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--ab390887-afc0-4715-826d-b1b167d522ae">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--09a61657-46e1-439e-b3ed-3e4556a78243">
+    Modify Controller Tasking
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--09a61657-46e1-439e-b3ed-3e4556a78243">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--b52870cc-83f3-473c-b895-72d91751030b">
+    Native API
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--b52870cc-83f3-473c-b895-72d91751030b">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--2dc2b567-8821-49f9-9045-8740f3d0b958">
+    Scripting
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--2dc2b567-8821-49f9-9045-8740f3d0b958">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--2736b752-4ec5-4421-a230-8977dea7649c">
+    User Execution
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--93bf9a8e-b14c-4587-b6d5-9efc7c12eb45--attack-pattern--2736b752-4ec5-4421-a230-8977dea7649c">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--c9a8d958-fcdb-40d2-af4c-461c8031651a">
+    Hardcoded Credentials
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--c9a8d958-fcdb-40d2-af4c-461c8031651a">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--fc5fda7e-6b2c-4457-b036-759896a2efa2">
+    Modify Program
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--fc5fda7e-6b2c-4457-b036-759896a2efa2">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--efbf7888-f61b-4572-9c80-7e2965c60707">
+    Module Firmware
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--efbf7888-f61b-4572-9c80-7e2965c60707">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--e72425f8-9ae6-41d3-bfdb-e1b865e60722">
+    Project File Infection
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--e72425f8-9ae6-41d3-bfdb-e1b865e60722">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--b9160e77-ea9e-4ba9-b1c8-53a3c466b13d">
+    System Firmware
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--b9160e77-ea9e-4ba9-b1c8-53a3c466b13d">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--cd2c76a4-5e23-4ca5-9c40-d5e0604f7101">
+    Valid Accounts
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--78f1d2ae-a579-44c4-8fc5-3e1775c73fac--attack-pattern--cd2c76a4-5e23-4ca5-9c40-d5e0604f7101">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--33752ae7-f875-4f43-bdb6-d8d02d341046--attack-pattern--cfe68e93-ce94-4c0f-a57d-3aa72cedd618">
+    Exploitation for Privilege Escalation
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--33752ae7-f875-4f43-bdb6-d8d02d341046--attack-pattern--cfe68e93-ce94-4c0f-a57d-3aa72cedd618">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--33752ae7-f875-4f43-bdb6-d8d02d341046--attack-pattern--ab390887-afc0-4715-826d-b1b167d522ae">
+    Hooking
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--33752ae7-f875-4f43-bdb6-d8d02d341046--attack-pattern--ab390887-afc0-4715-826d-b1b167d522ae">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--2883c520-7957-46ca-89bd-dab1ad53b601">
+    Change Operating Mode
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--2883c520-7957-46ca-89bd-dab1ad53b601">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--9f947a1c-3860-48a8-8af0-a2dfa3efde03">
+    Exploitation for Evasion
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--9f947a1c-3860-48a8-8af0-a2dfa3efde03">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--53a26eee-1080-4d17-9762-2027d5a1b805">
+    Indicator Removal on Host
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--53a26eee-1080-4d17-9762-2027d5a1b805">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--ba203963-3182-41ac-af14-7e7ebc83cd61">
+    Masquerading
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--ba203963-3182-41ac-af14-7e7ebc83cd61">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--3b6b9246-43f8-4c69-ad7a-2b11cfe0a0d9">
+    Rootkit
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--3b6b9246-43f8-4c69-ad7a-2b11cfe0a0d9">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+
+<div class="technique-cell  tooltip" {% if (("Baseline Replay Attack" in keys)) %} style="background-color:rgba(180,207,236,0.8)!important" {% endif %}   id="technique-cell--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--8535b71e-3c12-4258-a4ab-40257a1becc4">
+    Spoof Reporting Message <span class="tooltiptext">{{data.get("Baseline Replay Attack",0)}} Log Entries</span>
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ddf70682-f3ce-479c-a9a4-7eadf9bfead7--attack-pattern--8535b71e-3c12-4258-a4ab-40257a1becc4">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--ea0c980c-5cf0-43a7-a049-59c4c207566e">
+    Network Connection Enumeration
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--ea0c980c-5cf0-43a7-a049-59c4c207566e">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--38213338-1aab-479d-949b-c81b66ccca5c">
+    Network Sniffing
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--38213338-1aab-479d-949b-c81b66ccca5c">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--d5a69cfb-fc2a-46cb-99eb-74b236db5061">
+    Remote System Discovery
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--d5a69cfb-fc2a-46cb-99eb-74b236db5061">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--2fedbe69-581f-447d-8a78-32ee7db939a9">
+    Remote System Information Discovery
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--2fedbe69-581f-447d-8a78-32ee7db939a9">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--0fe075d5-beac-4d02-b93e-0f874997db72">
+    Wireless Sniffing
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--696af733-728e-49d7-8261-75fdc590f453--attack-pattern--0fe075d5-beac-4d02-b93e-0f874997db72">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--8bb4538f-f16f-49f0-a431-70b5444c7349">
+    Default Credentials
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--8bb4538f-f16f-49f0-a431-70b5444c7349">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--85a45294-08f1-4539-bf00-7da08aa7b0ee">
+    Exploitation of Remote Services
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--85a45294-08f1-4539-bf00-7da08aa7b0ee">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--c9a8d958-fcdb-40d2-af4c-461c8031651a">
+    Hardcoded Credentials
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--c9a8d958-fcdb-40d2-af4c-461c8031651a">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--ead7bd34-186e-4c79-9a4d-b65bcce6ed9d">
+    Lateral Tool Transfer
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--ead7bd34-186e-4c79-9a4d-b65bcce6ed9d">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--be69c571-d746-4b1f-bdd0-c0c9817e9068">
+    Program Download
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--be69c571-d746-4b1f-bdd0-c0c9817e9068">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--e1f9cdd2-9511-4fca-90d7-f3e92cfdd0bf">
+    Remote Services
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--e1f9cdd2-9511-4fca-90d7-f3e92cfdd0bf">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--cd2c76a4-5e23-4ca5-9c40-d5e0604f7101">
+    Valid Accounts
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--51c25a9e-8615-40c0-8afd-1da578847924--attack-pattern--cd2c76a4-5e23-4ca5-9c40-d5e0604f7101">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--9a505987-ab05-4f46-a9a6-6441442eec3b">
+    Adversary-in-the-Middle
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--9a505987-ab05-4f46-a9a6-6441442eec3b">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+<div class="technique-cell tooltip" {% if "Reconnaissance" in keys %} style="background-color:rgba(180,207,236,0.8)!important" {% endif %} id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--3de230d4-3e42-4041-b089-17e1128feded">
+    Automated Collection <span class="tooltiptext">{{data.get("Reconnaissance",0)}} Log Entries</span>
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--3de230d4-3e42-4041-b089-17e1128feded">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--3405891b-16aa-4bd7-bd7c-733501f9b20f">
+    Data from Information Repositories
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--3405891b-16aa-4bd7-bd7c-733501f9b20f">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--fa3aa267-da22-4bdd-961f-03223322a8d5">
+    Data from Local System
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--fa3aa267-da22-4bdd-961f-03223322a8d5">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--2aa406ed-81c3-4c1d-ba83-cfbee5a2847a">
+    Detect Operating Mode
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--2aa406ed-81c3-4c1d-ba83-cfbee5a2847a">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--53a48c74-0025-45f4-b04a-baa853df8204">
+    I/O Image
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--53a48c74-0025-45f4-b04a-baa853df8204">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--2d0d40ad-22fa-4cc8-b264-072557e1364b">
+    Monitor Process State
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--2d0d40ad-22fa-4cc8-b264-072557e1364b">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--25852363-5968-4673-b81d-341d5ed90bd1">
+    Point & Tag Identification
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--25852363-5968-4673-b81d-341d5ed90bd1">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--3067b85e-271e-4bc5-81ad-ab1a81d411e3">
+    Program Upload
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--3067b85e-271e-4bc5-81ad-ab1a81d411e3">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--c5e3cdbc-0387-4be9-8f83-ff5c0865f377">
+    Screen Capture
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--c5e3cdbc-0387-4be9-8f83-ff5c0865f377">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--0fe075d5-beac-4d02-b93e-0f874997db72">
+    Wireless Sniffing
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--b2a67b1e-913c-46f6-b219-048a90560bb9--attack-pattern--0fe075d5-beac-4d02-b93e-0f874997db72">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--97c8ff73-bd14-4b6c-ac32-3d91d2c41e3f--attack-pattern--e6c31185-8040-4267-83d3-b217b8a92f07">
+    Commonly Used Port
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--97c8ff73-bd14-4b6c-ac32-3d91d2c41e3f--attack-pattern--e6c31185-8040-4267-83d3-b217b8a92f07">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--97c8ff73-bd14-4b6c-ac32-3d91d2c41e3f--attack-pattern--d67adac8-e3b9-44f9-9e6d-6c2a7d69dbe4">
+    Connection Proxy
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--97c8ff73-bd14-4b6c-ac32-3d91d2c41e3f--attack-pattern--d67adac8-e3b9-44f9-9e6d-6c2a7d69dbe4">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--97c8ff73-bd14-4b6c-ac32-3d91d2c41e3f--attack-pattern--e076cca8-2f08-45c9-aff7-ea5ac798b387">
+    Standard Application Layer Protocol
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--97c8ff73-bd14-4b6c-ac32-3d91d2c41e3f--attack-pattern--e076cca8-2f08-45c9-aff7-ea5ac798b387">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--19a71d1e-6334-4233-8260-b749cae37953">
+    Activate Firmware Update Mode
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--19a71d1e-6334-4233-8260-b749cae37953">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--2900bbd8-308a-4274-b074-5b8bde8347bc">
+    Alarm Suppression
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--2900bbd8-308a-4274-b074-5b8bde8347bc">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--008b8f56-6107-48be-aa9f-746f927dbb61">
+    Block Command Message
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--008b8f56-6107-48be-aa9f-746f927dbb61">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--3f1f4ccb-9be2-4ff8-8f69-dd972221169b">
+    Block Reporting Message
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--3f1f4ccb-9be2-4ff8-8f69-dd972221169b">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--1c478716-71d9-46a4-9a53-fa5d576adb60">
+    Block Serial COM
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--1c478716-71d9-46a4-9a53-fa5d576adb60">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--fab8fc7d-f27f-4fbb-9de6-44740aade05f">
+    Change Credential
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--fab8fc7d-f27f-4fbb-9de6-44740aade05f">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--493832d9-cea6-4b63-abe7-9a65a6473675">
+    Data Destruction
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--493832d9-cea6-4b63-abe7-9a65a6473675">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+
+<div class="technique-cell tooltip" {% if (("Query Flooding" in keys) or ("Malicious Packet Crafting" in keys)) %} style="background-color:rgba(180,207,236,0.8)!important" {% endif %}  id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--1b22b676-9347-4c55-9a35-ef0dc653db5b">
+    Denial of Service <span class="tooltiptext">{{data.get("Query Flooding", 0) + data.get("Malicious Packet Crafting", 0)}} Log Entries</span>
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--1b22b676-9347-4c55-9a35-ef0dc653db5b">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--25dfc8ad-bd73-4dfd-84a9-3c3d383f76e9">
+    Device Restart/Shutdown
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--25dfc8ad-bd73-4dfd-84a9-3c3d383f76e9">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--36e9f5bc-ac13-4da4-a2f4-01f4877d9004">
+    Manipulate I/O Image
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--36e9f5bc-ac13-4da4-a2f4-01f4877d9004">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--e5de767e-f513-41cd-aa15-33f6ce5fbf92">
+    Modify Alarm Settings
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--e5de767e-f513-41cd-aa15-33f6ce5fbf92">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--3b6b9246-43f8-4c69-ad7a-2b11cfe0a0d9">
+    Rootkit
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--3b6b9246-43f8-4c69-ad7a-2b11cfe0a0d9">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--063b5b92-5361-481a-9c3f-95492ed9a2d8">
+    Service Stop
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--063b5b92-5361-481a-9c3f-95492ed9a2d8">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--b9160e77-ea9e-4ba9-b1c8-53a3c466b13d">
+    System Firmware
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--298fe907-7931-4fd2-8131-2814dd493134--attack-pattern--b9160e77-ea9e-4ba9-b1c8-53a3c466b13d">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell tooltip" {% if (("Write Attack" in keys)) %} style="background-color:rgba(180,207,236,0.8)!important" {% endif %} id="technique-cell--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--8e7089d3-fba2-44f8-94a8-9a79c53920c4">
+    Brute Force I/O <span class="tooltiptext">{{data.get("Write Attack", 0)}} Log Entries</span>
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--8e7089d3-fba2-44f8-94a8-9a79c53920c4">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--097924ce-a9a9-4039-8591-e0deedfb8722">
+    Modify Parameter
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--097924ce-a9a9-4039-8591-e0deedfb8722">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--efbf7888-f61b-4572-9c80-7e2965c60707">
+    Module Firmware
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--efbf7888-f61b-4572-9c80-7e2965c60707">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--8535b71e-3c12-4258-a4ab-40257a1becc4">
+    Spoof Reporting Message
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--8535b71e-3c12-4258-a4ab-40257a1becc4">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--40b300ba-f553-48bf-862e-9471b220d455">
+    Unauthorized Command Message
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--ff048b6c-b872-4218-b68c-3735ebd1f024--attack-pattern--40b300ba-f553-48bf-862e-9471b220d455">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+                <td class="tactic">
+                    <table class="techniques-table">
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tbody><tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--83ebd22f-b401-4d59-8219-2294172cf916">
+    Damage to Property
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--83ebd22f-b401-4d59-8219-2294172cf916">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--e33c7ecc-5a38-497f-beb2-a9a2049a4c20">
+    Denial of Control
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--e33c7ecc-5a38-497f-beb2-a9a2049a4c20">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--56ddc820-6cfb-407f-850b-52c035d123ac">
+    Denial of View
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--56ddc820-6cfb-407f-850b-52c035d123ac">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--b5b9bacb-97f2-4249-b804-47fd44de1f95">
+    Loss of Availability
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--b5b9bacb-97f2-4249-b804-47fd44de1f95">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--a81696ef-c106-482c-8f80-59c30f2569fb">
+    Loss of Control
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--a81696ef-c106-482c-8f80-59c30f2569fb">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--63b6942d-8359-4506-bfb3-cf87aa8120ee">
+    Loss of Productivity and Revenue
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--63b6942d-8359-4506-bfb3-cf87aa8120ee">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--2bb4d762-bf4a-4bc3-9318-15cc6a354163">
+    Loss of Protection
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--2bb4d762-bf4a-4bc3-9318-15cc6a354163">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--5fa00fdd-4a55-4191-94a0-564181d7fec2">
+    Loss of Safety
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--5fa00fdd-4a55-4191-94a0-564181d7fec2">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--138979ba-0430-4de6-a128-2fc0b056ba36">
+    Loss of View
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--138979ba-0430-4de6-a128-2fc0b056ba36">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--1af9e3fd-2bcc-414d-adbd-fe3b95c02ca1">
+    Manipulation of Control
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--1af9e3fd-2bcc-414d-adbd-fe3b95c02ca1">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--4c2e1408-9d68-4187-8e6b-a77bc52700ec">
+    Manipulation of View
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--4c2e1408-9d68-4187-8e6b-a77bc52700ec">
+                                    </div>
+                                </td>
+                            </tr>
+                        <!-- tour technique is scheduled task under privilege escalation -->
+
+                            <tr class="technique-row">
+                                <td>
+                                        
+<div class="technique-cell " id="technique-cell--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--b7e13ee8-182c-4f19-92a4-a88d7d855d54">
+    Theft of Operational Information
+</div>
+
+                                </td>
+                                <td class="subtechniques-td">
+                                    <div class="subtechniques hidden subtechniques-container subtechniques--x-mitre-tactic--77542f83-70d0-40c2-8a9d-ad2eb8b00279--attack-pattern--b7e13ee8-182c-4f19-92a4-a88d7d855d54">
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
