@@ -158,7 +158,7 @@ input, textarea, select {
 
 input:focus, textarea:focus, select:focus  {
   outline: none;
-  border-bottom: 1px solid orange;
+  border-bottom: 1px solid rgba(0, 195, 255, 0.4);
 }
 
 textarea{

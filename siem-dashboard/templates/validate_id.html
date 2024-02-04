@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+{% block title %}Face DB{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{url_for('static', filename='datatables/jquery.dataTables.min.css')}}"/>
+{% endblock %}
+{% block content %}
+
+<script>document.querySelector('#nav-id').classList.add('active');</script>
+
+<br/><br/>
+
+  <div class="main">
+
+    <form style="color:white;text-align: center;margin: 0 auto;">
+        <span style="display: flex;align-items: center;align-content: center;text-align: center; padding-left: 30%;">
+          <span>Source Image:</span>&nbsp;&nbsp; <input type="file" name="id_card"/>
+        </span>
+        <button>Verify ID</button>
+      </form>
+
+      <br/><br>
+      <pre style="color:white;text-align: center;margin: 0 auto;">
+ID is <span style="color:rgba(0,255,0,1);">VALID</span>!
+Face Image in ID is <span style="color:rgba(0,255,0,1);">VALID</span>!
+
+Name: Aaditya Rengarajan
+Aadhar Number: 9524 2963 4591
+Gender: Male
+Date of Birth: 25/02/2003</pre>
+
+  </div>
+
+
+
+
+
+{% endblock %}

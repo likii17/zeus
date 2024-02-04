@@ -43,7 +43,7 @@
         {% for event in data %}
         <tr>
           <td>
-            {{event["event_id"]}}
+            {{event["id"]}}
           </td>
           <td>
             {{event["event_type"]}}
@@ -58,7 +58,7 @@
             {% if event["resolved"] %}Resolved{% else %}Unresolved{% endif %}
           </td>
           <td>
-            <a href="{{url_for('event_view', id=event['event_id'])}}">View</a>
+            <a href="{{url_for('event_view', id=event['id'])}}">View</a>
           </td>
         </tr>
         {% endfor %}

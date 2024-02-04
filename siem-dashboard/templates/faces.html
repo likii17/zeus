@@ -1,58 +1,52 @@
 {% extends "index.html" %}
-{% block title %}Ongoing Investigations @ SIEM{% endblock %}
+{% block title %}Face DB{% endblock %}
 {% block head %}
   {{ super() }}
   <link rel="stylesheet" href="{{url_for('static', filename='datatables/jquery.dataTables.min.css')}}"/>
 {% endblock %}
 {% block content %}
 
-<script>document.querySelector('#nav-siem').classList.add('active');</script>
-
-<subnav>
-  <a href="{{url_for('dashboard_siem_create')}}">Create Event</a>
-  <a href="{{url_for('dashboard_siem')}}" class="active">View Ongoing Investigations</a>
-  <a href="{{url_for('dashboard_siem_all')}}">View All Events</a>
-</subnav>
+<script>document.querySelector('#nav-face').classList.add('active');</script>
 
 <br/><br/>
 
   <div class="main">
 
-    <table id="eventsTable">
+    <table id="facesTable">
       <thead>
         <th>
           ID
         </th>
         <th>
-          Type
+          Person Name
         </th>
         <th>
-          Timestamp
+          Face
         </th>
         <th>
-          Source Device
+          Registered On
         </th>
         <th>
-          View
+          Authentications
         </th>
       </thead>
       <tbody>
-        {% for event in data %}
+        {% for face in data %}
         <tr>
           <td>
-            {{event["id"]}}
+            {{face["id"]}}
           </td>
           <td>
-            {{event["event_type"]}}
+            {{face["name"]}}
           </td>
           <td>
-            {{event["timestamp"]}}
+            <img src='{{face["face"]}}' width="50px"/>
           </td>
           <td>
-            {{event["source_device"]}}
+            {{face["registration"]}}
           </td>
           <td>
-            <a href="{{url_for('event_view', id=event['id'])}}">View</a>
+            {{face["auths"]}}
           </td>
         </tr>
         {% endfor %}
@@ -63,7 +57,7 @@
     <script src="{{url_for('static', filename='datatables/jquery-3.7.1.min.js')}}"></script>
     <script src="{{url_for('static', filename='datatables/jquery.dataTables.min.js')}}"></script>
     <script>
-      let table = new DataTable('#eventsTable');
+      let table = new DataTable('#facesTable');
     </script>
 
   </div>
